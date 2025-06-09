@@ -110,7 +110,7 @@ if __name__ == '__main__':
         logger.info(f"也可以通过 http://localhost:{port} 访问")
         
         # 设置监听所有可用的网络接口
-        app.run(host='0.0.0.0', port=port, debug=True)
+        app.run(host='0.0.0.0', port=port)
         
     except Exception as e:
         logger.critical(f"应用启动失败: {str(e)}", exc_info=True)

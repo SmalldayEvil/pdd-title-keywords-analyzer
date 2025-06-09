@@ -39,3 +39,17 @@ ValueError: 读取Excel文件失败: Excel文件中未找到标题列，请确�
 2025-06-09 14:39:16,161 - __main__ - INFO - 也可以通过 http://localhost:5001 访问
 2025-06-09 14:39:16,212 - werkzeug - WARNING -  * Debugger is active!
 2025-06-09 14:39:16,234 - werkzeug - INFO -  * Debugger PIN: 534-918-941
+2025-06-09 16:37:33,632 - __main__ - INFO - 应用将在 http://192.168.3.14:5000 上运行
+2025-06-09 16:37:33,633 - __main__ - INFO - 也可以通过 http://localhost:5000 访问
+2025-06-09 16:37:33,711 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.3.14:5000
+2025-06-09 16:37:33,711 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-09 16:37:33,712 - werkzeug - INFO -  * Restarting with stat
+2025-06-09 16:37:35,114 - __main__ - WARNING - 端口 5000 已被占用，尝试使用 5001
+2025-06-09 16:37:35,115 - __main__ - INFO - 应用将在 http://192.168.3.14:5001 上运行
+2025-06-09 16:37:35,115 - __main__ - INFO - 也可以通过 http://localhost:5001 访问
+2025-06-09 16:37:35,133 - werkzeug - WARNING -  * Debugger is active!
+2025-06-09 16:37:35,209 - werkzeug - INFO -  * Debugger PIN: 534-918-941
+2025-06-09 16:37:59,238 - werkzeug - INFO - 192.168.3.14 - - [09/Jun/2025 16:37:59] "GET / HTTP/1.1" 200 -
