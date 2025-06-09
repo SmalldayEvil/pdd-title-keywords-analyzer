@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>分析结果 - 拼多多标题关键词分析</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        secondary: '#36D399',
+                        accent: '#FF9F1C',
+                        neutral: '#1F2937',
+                        'base-100': '#FFFFFF',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .transition-custom {
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            .keyword-item {
+                @apply flex items-center p-3 rounded-lg transition-custom hover:bg-gray-50;
+            }
+            .keyword-rank {
+                @apply w-8 h-8 flex items-center justify-center rounded-full bg-primary/10 text-primary font-bold mr-3;
+            }
+            .keyword-text {
+                @apply font-medium text-neutral;
+            }
+            .keyword-count {
+                @apply ml-auto text-sm text-gray-500;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+    <!-- 导航栏 -->
+    <header class="bg-primary shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <i class="fa fa-bar-chart text-white text-2xl"></i>
+                <h1 class="text-white text-xl md:text-2xl font-bold">拼多多标题关键词分析</h1>
+            </div>
+            <nav>
+                <ul class="flex space-x-6">
+                    <li><a href="/" class="text-white hover:text-gray-200 transition-custom">首页</a></li>
+                    <li><a href="#" class="text-white hover:text-gray-200 transition-custom">使用指南</a></li>
+                    <li><a href="#" class="text-white hover:text-gray-200 transition-custom">关于我们</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="flex-grow container mx-auto px-4 py-8">
+        <div class="max-w-5xl mx-auto">
+            <!-- 返回按钮 -->
+            <div class="mb-6">
+                <a href="/" class="inline-flex items-center text-primary hover:text-primary/80 transition-custom">
+                    <i class="fa fa-arrow-left mr-2"></i> 返回上传页面
+                </a>
+            </div>
+
+            <!-- 分析结果标题 -->
+            <div class="text-center mb-10">
+                <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-neutral mb-4">标题关键词分析结果</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    以下是您上传的商品标题中出现频率最高的关键词以及生成的词云图
+                </p>
+            </div>
+
+            <!-- 分析结果卡片 -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- 高频关键词卡片 -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white rounded-xl shadow-lg p-6 h-full">
+                        <h3 class="text-xl font-bold text-neutral mb-6 flex items-center">
+                            <i class="fa fa-tags text-primary mr-2"></i> 高频关键词
+                        </h3>
+                        <div class="space-y-3 max-h-[600px] overflow-y-auto pr-2">
+                            {% for keyword in top_keywords %}
+                                <div class="keyword-item">
+                                    <div class="keyword-rank">
+                                        {{ loop.index }}
+                                    </div>
+                                    <div class="keyword-text">
+                                        {{ keyword.split(':')[0].strip().split('.')[1].strip() }}
+                                    </div>
+                                    <div class="keyword-count">
+                                        {{ keyword.split(':')[1].strip() }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 词云图卡片 -->
+                <div class="lg:col-span-2">
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-xl font-bold text-neutral mb-6 flex items-center">
+                            <i class="fa fa-cloud text-primary mr-2"></i> 关键词词云图
+                        </h3>
+                        <div class="bg-gray-100 rounded-lg p-4 flex justify-center">
+                            <img src="data:image/png;base64,{{ wordcloud_base64 }}" alt="关键词词云图" class="max-w-full h-auto rounded-lg shadow-md">
+                        </div>
+                        <div class="mt-4 text-center">
+                            <p class="text-sm text-gray-500">
+                                词云图中字体越大表示该关键词在标题中出现的频率越高，<span class="text-red-500">红色</span>字体表示出现频率最高的前三个关键词
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 分析完成提示 -->
+            <div class="mt-10 bg-secondary/10 border border-secondary/30 rounded-lg p-6">
+                <div class="flex items-start">
+                    <i class="fa fa-check-circle text-secondary text-2xl mt-0.5 mr-3"></i>
+                    <div>
+                        <h4 class="font-semibold text-neutral mb-2">分析完成！</h4>
+                        <p class="text-gray-600">
+                            您可以根据这些关键词了解当前热门商品的命名规律，优化您的商品标题以提高曝光率。
+                        </p>
+                        <div class="mt-4 flex flex-wrap gap-3">
+                            <a href="/" class="bg-primary hover:bg-primary/90 text-white font-medium py-2 px-4 rounded-lg shadow-sm transition-custom">
+                                <i class="fa fa-upload mr-2"></i> 继续分析
+                            </a>
+                            <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-lg shadow-sm transition-custom" id="downloadWordcloud">
+                                <i class="fa fa-download mr-2"></i> 下载词云图
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-neutral text-white py-6">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p>&copy; 2025 拼多多标题分析工具</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-300 hover:text-white transition-custom">
+                        <i class="fa fa-github text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-300 hover:text-white transition-custom">
+                        <i class="fa fa-twitter text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-300 hover:text-white transition-custom">
+                        <i class="fa fa-linkedin text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 下载词云图功能
+        document.getElementById('downloadWordcloud').addEventListener('click', function() {
+            const wordcloudImg = document.querySelector('img[alt="关键词词云图"]');
+            if (wordcloudImg) {
+                const link = document.createElement('a');
+                link.href = wordcloudImg.src;
+                link.download = 'pdd_title_wordcloud.png';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        });
+    </script>
+</body>
+</html>

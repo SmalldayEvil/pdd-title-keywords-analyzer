@@ -1,0 +1,36 @@
+2025-06-09 14:03:25,647 - __main__ - INFO - 应用将在 http://192.168.3.14:5000 上运行
+2025-06-09 14:03:25,648 - __main__ - INFO - 也可以通过 http://localhost:5000 访问
+2025-06-09 14:03:26,485 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.3.14:5000
+2025-06-09 14:03:26,486 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-09 14:03:26,488 - werkzeug - INFO -  * Restarting with stat
+2025-06-09 14:03:32,738 - __main__ - WARNING - 端口 5000 已被占用，尝试使用 5001
+2025-06-09 14:03:32,739 - __main__ - INFO - 应用将在 http://192.168.3.14:5001 上运行
+2025-06-09 14:03:32,739 - __main__ - INFO - 也可以通过 http://localhost:5001 访问
+2025-06-09 14:03:32,853 - werkzeug - WARNING -  * Debugger is active!
+2025-06-09 14:03:32,933 - werkzeug - INFO -  * Debugger PIN: 534-918-941
+2025-06-09 14:04:33,049 - werkzeug - INFO - 192.168.3.14 - - [09/Jun/2025 14:04:33] "GET / HTTP/1.1" 200 -
+2025-06-09 14:04:41,200 - werkzeug - INFO - 192.168.3.14 - - [09/Jun/2025 14:04:41] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-06-09 14:04:52,331 - __main__ - INFO - 文件已保存: uploads/b31c567c-2271-4e62-9fca-f58ed998ff71_.xlsx
+2025-06-09 14:04:53,449 - __main__ - ERROR - 分析过程中出错: 读取Excel文件失败: Excel文件中未找到标题列，请确保包含以下列名之一: 标题, 商品标题, product_title, title
+Traceback (most recent call last):
+  File "/Users/a/Library/Containers/com.tencent.xinWeChat/Data/Library/Application Support/com.tencent.xinWeChat/2.0b4.0.9/6c75a0fd8a8c06ba657395dcbcb8b25f/Message/MessageTemp/1235d1de6e60aec06dd8c6efb705c246/File/pdd_keyword/pdd_title_analysis.py", line 50, in read_excel_file
+    raise ValueError("Excel文件中未找到标题列，请确保包含以下列名之一: " + ", ".join(possible_columns))
+ValueError: Excel文件中未找到标题列，请确保包含以下列名之一: 标题, 商品标题, product_title, title
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/a/Library/Containers/com.tencent.xinWeChat/Data/Library/Application Support/com.tencent.xinWeChat/2.0b4.0.9/6c75a0fd8a8c06ba657395dcbcb8b25f/Message/MessageTemp/1235d1de6e60aec06dd8c6efb705c246/File/pdd_keyword/app.py", line 66, in upload
+    top_20, wordcloud_base64 = analyze_file(file_path)
+                               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/a/Library/Containers/com.tencent.xinWeChat/Data/Library/Application Support/com.tencent.xinWeChat/2.0b4.0.9/6c75a0fd8a8c06ba657395dcbcb8b25f/Message/MessageTemp/1235d1de6e60aec06dd8c6efb705c246/File/pdd_keyword/pdd_title_analysis.py", line 174, in analyze_file
+    titles = read_excel_file(file_path)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/a/Library/Containers/com.tencent.xinWeChat/Data/Library/Application Support/com.tencent.xinWeChat/2.0b4.0.9/6c75a0fd8a8c06ba657395dcbcb8b25f/Message/MessageTemp/1235d1de6e60aec06dd8c6efb705c246/File/pdd_keyword/pdd_title_analysis.py", line 55, in read_excel_file
+    raise ValueError(f"读取Excel文件失败: {str(e)}")
+ValueError: 读取Excel文件失败: Excel文件中未找到标题列，请确保包含以下列名之一: 标题, 商品标题, product_title, title
+2025-06-09 14:04:53,466 - __main__ - INFO - 临时文件已删除: uploads/b31c567c-2271-4e62-9fca-f58ed998ff71_.xlsx
+2025-06-09 14:04:53,466 - werkzeug - INFO - 192.168.3.14 - - [09/Jun/2025 14:04:53] "[35m[1mPOST /upload HTTP/1.1[0m" 500 -

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拼多多标题关键词分析</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        secondary: '#36D399',
+                        accent: '#FF9F1C',
+                        neutral: '#1F2937',
+                        'base-100': '#FFFFFF',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .transition-custom {
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+    <!-- 导航栏 -->
+    <header class="bg-primary shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <i class="fa fa-bar-chart text-white text-2xl"></i>
+                <h1 class="text-white text-xl md:text-2xl font-bold">拼多多标题关键词分析</h1>
+            </div>
+            <nav>
+                <ul class="flex space-x-6">
+                    <li><a href="#" class="text-white hover:text-gray-200 transition-custom">首页</a></li>
+                    <li><a href="#" class="text-white hover:text-gray-200 transition-custom">使用指南</a></li>
+                    <li><a href="#" class="text-white hover:text-gray-200 transition-custom">关于我们</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="flex-grow container mx-auto px-4 py-8">
+        <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-8 transform hover:shadow-xl transition-custom">
+            <div class="text-center mb-8">
+                <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-neutral mb-4">上传商品标题数据</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    上传包含拼多多商品标题的Excel文件，系统将自动分析标题中的高频关键词并生成词云图，帮助您了解热门商品的命名规律。
+                </p>
+            </div>
+
+            <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data" 
+                  class="space-y-6">
+                <!-- 文件上传区域 -->
+                <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center transition-custom hover:border-primary">
+                    <input type="file" name="file" id="fileInput" accept=".xlsx,.xls" 
+                           class="hidden" required>
+                    <label for="fileInput" class="cursor-pointer">
+                        <div class="space-y-4">
+                            <i class="fa fa-cloud-upload text-4xl text-gray-400 hover:text-primary transition-custom"></i>
+                            <h3 class="text-lg font-medium text-gray-700">点击或拖拽文件到这里</h3>
+                            <p class="text-sm text-gray-500">支持的格式：.xlsx, .xls (最大16MB)</p>
+                            <span id="fileName" class="block mt-2 text-sm font-medium text-primary hidden"></span>
+                        </div>
+                    </label>
+                </div>
+
+                <!-- 提交按钮 -->
+                <div class="text-center">
+                    <button type="submit" id="submitBtn" 
+                            class="bg-primary hover:bg-primary/90 text-white font-bold py-3 px-8 rounded-lg shadow-md hover:shadow-lg transition-custom transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-primary/50">
+                        <i class="fa fa-search mr-2"></i> 开始分析
+                    </button>
+                </div>
+            </form>
+
+            <!-- 上传须知 -->
+            <div class="mt-10 bg-gray-50 rounded-lg p-6">
+                <h3 class="text-lg font-semibold text-neutral mb-3 flex items-center">
+                    <i class="fa fa-info-circle text-primary mr-2"></i> 上传须知
+                </h3>
+                <ul class="space-y-2 text-gray-600 text-sm">
+                    <li class="flex items-start">
+                        <i class="fa fa-check-circle text-secondary mt-1 mr-2"></i>
+                        <span>Excel文件应包含商品标题列，列名可以是"标题"、"商品标题"、"product_title"等</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fa fa-check-circle text-secondary mt-1 mr-2"></i>
+                        <span>系统会自动提取标题中的中文关键词，并统计词频</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fa fa-check-circle text-secondary mt-1 mr-2"></i>
+                        <span>分析结果将显示高频关键词列表和词云图</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fa fa-check-circle text-secondary mt-1 mr-2"></i>
+                        <span>文件上传后会自动删除，不会保留您的原始数据</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-neutral text-white py-6">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p>&copy; 2025 拼多多标题分析工具</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-300 hover:text-white transition-custom">
+                        <i class="fa fa-github text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-300 hover:text-white transition-custom">
+                        <i class="fa fa-twitter text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-300 hover:text-white transition-custom">
+                        <i class="fa fa-linkedin text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 处理文件选择
+        const fileInput = document.getElementById('fileInput');
+        const fileName = document.getElementById('fileName');
+        
+        fileInput.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                fileName.textContent = this.files[0].name;
+                fileName.classList.remove('hidden');
+            } else {
+                fileName.classList.add('hidden');
+            }
+        });
+
+        // 表单提交动画
+        const uploadForm = document.getElementById('uploadForm');
+        const submitBtn = document.getElementById('submitBtn');
+        
+        uploadForm.addEventListener('submit', function() {
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin mr-2"></i> 分析中...';
+        });
+    </script>
+</body>
+</html>    
